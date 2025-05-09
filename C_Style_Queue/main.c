@@ -25,7 +25,7 @@ bool isFull(Queue* q) {
 		원형큐가 아니면 맞음, 원형큐는 배열의 양끝이 연결된 것처럼 동작함.rear가 끝까지가면
 		0으로 돌아가야함.
 	}*/
-	return ((q->rear % q->capacity) == q->front);
+	return ((q->rear+1 % q->capacity) == q->front);
 	
 }
 
@@ -36,8 +36,10 @@ bool isEmpty(Queue* q) {
 }
 
 void EnQueue(Queue* q, int item) {
-	if (isFull(q) == true)
+	if (isFull(q) == true) {
 		printf("Queue가 꽉 찼습니다\n");
+		return;
+	}
 	
 	q->data[q->rear] = item; //해당 인덱스를 item으로 설정
 	q->rear = (q->rear + 1) % q->capacity; //q.rear를 순환시키기 위해 나머지 연산으로 동작해야함
@@ -60,10 +62,12 @@ int DeQueue(Queue* q) {
 void main() {
 	Queue myQueue;
 	InitQueue(&myQueue, 10);
-	for (int i = 0;i < 10;i++) {
+	for (int i = 1;i < 5;i++) {
 		EnQueue(&myQueue, i);
 	}
 	
+	printf("%d \n", DeQueue(&myQueue));
+	printf("%d \n", DeQueue(&myQueue));
 	printf("%d \n", DeQueue(&myQueue));
 
 
