@@ -10,6 +10,13 @@ typedef struct {
 	int capacity; // 최대크기
 } Queue;
 
+void InitQueue(Queue* q, int capacity) {
+	q->data = (int*)malloc(sizeof(int) * capacity);
+	q->front = 0;
+	q->rear = 0;
+	q->capacity = capacity;
+}
+
 bool isFull(Queue* q) {
 	//if (sizeof(q->data) == 4 * q->capacity) {
 	//	return true;
@@ -37,7 +44,27 @@ void EnQueue(Queue* q, int item) {
 
 }
 
+int DeQueue(Queue* q) {
+	if (isEmpty(q) == true) {
+		printf("Queue가 비었습니다");
+		return -1;
+	}
+
+	int item = q->data[q->front];
+	q->front = (q->front + 1) % q->capacity;
+	return item;
+}
+
+
 
 void main() {
 	Queue myQueue;
+	InitQueue(&myQueue, 10);
+	for (int i = 0;i < 10;i++) {
+		EnQueue(&myQueue, i);
+	}
+	
+	printf("%d \n", DeQueue(&myQueue));
+
+
 }
