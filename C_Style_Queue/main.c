@@ -24,11 +24,17 @@ bool isFull(Queue* q) {
 
 bool isEmpty(Queue* q) {
 	return q->front == q->rear;
+	// front와 rear가 동일한위치이면 빈 큐임(모두 뺀 것)
 		
 }
 
-void EnQueue(Queue* queue, int item) {
+void EnQueue(Queue* q, int item) {
+	if (isFull(q) == true)
+		printf("Queue가 꽉 찼습니다\n");
 	
+	q->data[q->rear] = item; //해당 인덱스를 item으로 설정
+	q->rear = (q->rear + 1) % q->capacity; //q.rear를 순환시키기 위해 나머지 연산으로 동작해야함
+
 }
 
 
